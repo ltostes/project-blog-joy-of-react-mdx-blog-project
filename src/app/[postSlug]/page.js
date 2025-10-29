@@ -6,10 +6,24 @@ import { loadBlogPost } from '@/helpers/file-helpers';
 
 import styles from './postSlug.module.css';
 
-async function BlogPost({ params }) {
-  const { postSlug } = params;
+const cachedLoadBlogPost = React.cache(loadBlogPost);
 
-  const blogPost = await loadBlogPost(postSlug);
+export async function generateMetadata({ params }) {
+  const { postSlug } = await params;
+  const blogPost = await cachedLoadBlogPost(postSlug);
+
+  const { frontmatter : { title, abstract } } = blogPost;
+
+  return {
+    title,
+    description: abstract
+  }
+}
+
+async function BlogPost({ params }) {
+  const { postSlug } = await params;
+
+  const blogPost = await cachedLoadBlogPost(postSlug);
 
   const { content , frontmatter : { title, publishedOn }} = blogPost;
 
