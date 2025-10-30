@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 
 import BlogHero from '@/components/BlogHero';
 import CodeSnippet from '@/components/CodeSnippet';
+import CircularColorsDemo from '@/components/CircularColorsDemo';
 import { loadBlogPost } from '@/helpers/file-helpers';
 
 const DivisionGroupsDemo = dynamic(() => import('@/components/DivisionGroupsDemo'))
@@ -41,7 +42,8 @@ async function BlogPost({ params }) {
         <MDXRemote source={content}
           components={{
             pre: CodeSnippet,
-            DivisionGroupsDemo
+            DivisionGroupsDemo,
+            CircularColorsDemo
           }}
         />
       </div>
